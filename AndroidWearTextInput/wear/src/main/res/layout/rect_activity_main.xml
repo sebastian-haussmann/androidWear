@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.example.baschdi.firstwearapp.MainActivity"
-    tools:deviceIds="wear_square"
-    tools:showIn="@layout/activity_main">
+    tools:deviceIds="wear_square">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    <Button
+        android:id="@+id/north"
         android:layout_width="wrap_content"
         android:layout_height="8pt"
-        android:text="  A   B   C   D"
-        android:id="@+id/button"
-        android:layout_weight="1"
-        android:background="@drawable/rect_buttons"
-        android:textColor="@color/black"
-        android:layout_gravity="top|left"/>
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="8pt"
+            android:text="  A   B   C   D"
+            android:id="@+id/button"
+            android:layout_weight="1"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"
+            android:layout_gravity="top|left"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="8pt"
-        android:text="E   F   G   H  "
-        android:id="@+id/button2"
-        android:layout_weight="1"
-        android:background="@drawable/rect_buttons"
-        android:textColor="@color/black"
-        android:layout_gravity="top|right" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="8pt"
+            android:text="E   F   G   H  "
+            android:id="@+id/button2"
+            android:layout_weight="1"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"
+            android:layout_gravity="top|right" />
+
     </LinearLayout>
 
+<!--
     <Button
         android:layout_width="0px"
         android:layout_height="100px"
@@ -64,4 +69,99 @@
         android:layout_gravity="top|right">
     </ImageView>
 
-</LinearLayout>
+-->
+    <LinearLayout
+        android:id="@+id/south"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="8pt"
+            android:text="X W V U"
+            android:id="@+id/button3"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="8pt"
+            android:text="T S R Q"
+            android:id="@+id/button4"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/west"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/south"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/north"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true">
+        <Button
+            android:layout_width="8pt"
+            android:layout_height="wrap_content"
+            android:text="€ @ ? !"
+            android:id="@+id/button5"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"
+            android:layout_gravity="top|left" />
+
+        <Button
+            android:layout_width="8pt"
+            android:layout_height="wrap_content"
+            android:text=", . Z Y"
+            android:id="@+id/button6"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"
+            android:layout_gravity="bottom|left" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/east"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/south"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/north"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true">
+        <Button
+            android:layout_width="8pt"
+            android:layout_height="100dp"
+            android:text="     I  J  K  L"
+            android:id="@+id/button7"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"
+            android:gravity="top"/>
+
+        <Button
+            android:layout_width="8pt"
+            android:layout_height="100dp"
+            android:text="M  N  O  P"
+            android:id="@+id/button8"
+            android:background="@drawable/rect_buttons"
+            android:textColor="@color/black"
+            android:gravity="bottom"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/south"
+        android:layout_below="@id/north"
+        android:layout_toLeftOf="@id/east"
+        android:layout_toRightOf="@id/west"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center"
+        android:text="Center"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+
+</RelativeLayout>
