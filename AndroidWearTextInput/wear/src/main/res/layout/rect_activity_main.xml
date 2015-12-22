@@ -12,7 +12,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="8pt"
-        android:text="A B C D"
+        android:text="  A   B   C   D"
         android:id="@+id/button"
         android:layout_weight="1"
         android:background="@drawable/rect_buttons"
@@ -22,7 +22,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="8pt"
-        android:text="E F G H"
+        android:text="E   F   G   H  "
         android:id="@+id/button2"
         android:layout_weight="1"
         android:background="@drawable/rect_buttons"
@@ -30,5 +30,37 @@
         android:layout_gravity="top|right" />
     </LinearLayout>
 
+    <Button
+        android:layout_width="0px"
+        android:layout_height="100px"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:background="@drawable/triangle"/>
+
+    <ImageView
+        android:id="@+id/do_nothing1"
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="-50dp"
+        android:layout_marginTop="-153dp"
+        android:background="@drawable/triangle"
+        android:soundEffectsEnabled="false"
+        android:layout_gravity="top|left">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/do_nothing2"
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:rotation="270"
+        android:layout_marginRight="-33dp"
+        android:layout_marginTop="-118dp"
+        android:background="@drawable/triangle"
+        android:soundEffectsEnabled="false"
+        android:layout_gravity="top|right">
+    </ImageView>
 
 </LinearLayout>
