@@ -102,9 +102,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/south"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/north"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="false">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +135,7 @@
         android:layout_below="@id/north"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="false">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
