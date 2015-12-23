@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.example.baschdi.firstwearapp.MainActivity"
+    tools:context="com.example.baschdi.androidweartextinput.MainActivity"
     tools:deviceIds="wear_square">
     <LinearLayout
         android:id="@+id/north"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="8pt"
             android:text="  A   B   C   D"
-            android:id="@+id/button"
+            android:id="@+id/button1"
             android:layout_weight="1"
             android:background="@drawable/rect_buttons"
             android:textColor="@color/black"
