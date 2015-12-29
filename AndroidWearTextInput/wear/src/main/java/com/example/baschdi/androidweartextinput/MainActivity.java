@@ -37,7 +37,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         Button button6 = (Button)findViewById(R.id.button6);
         Button button7 = (Button)findViewById(R.id.button7);
         Button button8 = (Button)findViewById(R.id.button8);
-        // geht leider noch nicht. Quelle: http://developer.android.com/guide/topics/ui/ui-events.html
+        TextView middle = (TextView)findViewById(R.id.middle);
+
         button1.setOnTouchListener(this);
         button2.setOnTouchListener(this);
         button3.setOnTouchListener(this);
@@ -46,16 +47,18 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         button6.setOnTouchListener(this);
         button7.setOnTouchListener(this);
         button8.setOnTouchListener(this);
+        middle.setOnTouchListener(this);
 
 
     }
 
-    public boolean onTouch (View v, MotionEvent event){
-        System.out.println(event.getAction() + "::::" + v);
+    public boolean onTouch (View view, MotionEvent event){
+        System.out.println(event.getAction() + "::::" + view);
         switch ( event.getAction() ) {
             case MotionEvent.ACTION_DOWN: System.out.println("Down");
                 break;
             case MotionEvent.ACTION_UP: System.out.println("Up");
+                System.out.println(event.getX() + "::" + event.getY());
                 break;
         }
         return true;

@@ -164,6 +164,7 @@
         android:layout_toRightOf="@id/west"
         android:background="@android:color/white"
         android:gravity="center"
+        android:id="@+id/middle"
         android:text="Text"
         android:textColor="@color/black"
         android:textAppearance="@android:style/TextAppearance.Large" />
