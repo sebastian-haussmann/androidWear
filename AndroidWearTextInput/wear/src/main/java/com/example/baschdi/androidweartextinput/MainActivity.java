@@ -2,32 +2,47 @@ package com.example.baschdi.androidweartextinput;
 
 import android.app.Activity;
 import android.content.Context;
+import android.gesture.GestureOverlayView;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.wearable.view.DismissOverlayView;
 import android.support.wearable.view.WatchViewStub;
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.baschdi.firstwearapp.R;
 
-public class MainActivity extends Activity implements View.OnTouchListener {
+public class MainActivity extends Activity implements View.OnTouchListener, GestureDetector.OnGestureListener {
 
     private TextView mTextView;
 
+    private Button button1, button2, button3, button4, button5, button6, button7, button8;
     private TextView textViewTop, textViewRight, textViewBottom, textViewLeft, textViewField;
-    private RelativeLayout middlePressed, middleReleased;
+    private RelativeLayout middlePressed, middleReleased, rootView;
 
-    private GestureDetector gestureDetector;
+    private GestureDetector detector;
+    private DismissOverlayView mDismissOverlay;
+    private GestureDetector mDetector;
+
+    private static final int SWIPE_THRESHOLD = 100;
+    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -38,23 +53,31 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
         setContentView(R.layout.rect_activity_main);
 
-        Button button1 = (Button)findViewById(R.id.button1);
-        Button button2 = (Button)findViewById(R.id.button2);
-        Button button3 = (Button)findViewById(R.id.button3);
-        Button button4 = (Button)findViewById(R.id.button4);
-        Button button5 = (Button)findViewById(R.id.button5);
-        Button button6 = (Button)findViewById(R.id.button6);
-        Button button7 = (Button)findViewById(R.id.button7);
-        Button button8 = (Button)findViewById(R.id.button8);
+        button1 = (Button) findViewById(R.id.button1);
+        button2 = (Button) findViewById(R.id.button2);
+        button3 = (Button) findViewById(R.id.button3);
+        button4 = (Button) findViewById(R.id.button4);
+        button5 = (Button) findViewById(R.id.button5);
+        button6 = (Button) findViewById(R.id.button6);
+        button7 = (Button) findViewById(R.id.button7);
+        button8 = (Button) findViewById(R.id.button8);
+
+        middlePressed = (RelativeLayout) findViewById(R.id.middlePressed);
+        middleReleased = (RelativeLayout) findViewById(R.id.middleReleased);
+        rootView = (RelativeLayout) findViewById(R.id.rootView);
 
         textViewTop = (TextView) findViewById(R.id.textViewTop);
+        setTextViewClippingBounds(textViewTop);
         textViewRight = (TextView) findViewById(R.id.textViewRight);
+        setTextViewClippingBounds(textViewRight);
         textViewBottom = (TextView) findViewById(R.id.textViewBottom);
+        setTextViewClippingBounds(textViewBottom);
         textViewLeft = (TextView) findViewById(R.id.textViewLeft);
+        setTextViewClippingBounds(textViewLeft);
         textViewField = (TextView) findViewById(R.id.textViewField);
 
-        middlePressed = (RelativeLayout)findViewById(R.id.middlePressed);
-        middleReleased = (RelativeLayout)findViewById(R.id.middleReleased);
+
+
 
         button1.setOnTouchListener(this);
         button2.setOnTouchListener(this);
@@ -64,17 +87,63 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         button6.setOnTouchListener(this);
         button7.setOnTouchListener(this);
         button8.setOnTouchListener(this);
-        middleReleased.setOnTouchListener(this);
-
-        gestureDetector = new GestureDetector(new SwipeGestureDetector());
 
 
+        detector = new GestureDetector(this,this);
+
+//        middleReleased.setOn
+
+        // Obtain the DismissOverlayView element
+        mDismissOverlay = (DismissOverlayView) findViewById(R.id.dismiss_overlay);
+        mDismissOverlay.showIntroIfNecessary();
+
+
+        mDismissOverlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                rootView.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+        mDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            public void onLongPress(MotionEvent ev) {
+                mDismissOverlay.show();
+
+                rootView.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
-    public boolean onTouch (View view, MotionEvent event){
+    public void setTextViewClippingBounds(TextView txtView) {
+        final TextView view = txtView;
+        txtView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.invalidate();
+                int x1 = (int) view.getLeft();
+                int x2 = x1 + view.getWidth();
+                int y1 = (int) view.getTop();
+                int y2 = y1 +  view.getHeight();
+
+                System.out.println(x1 + "-" + y1 + "-" + x2 + "-" + y2);
+                textViewTop.setClipBounds(new Rect(x1, y1, x2, y2));
+            }
+        }, 1);
+    }
+
+    // Capture long presses
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+
+        return mDetector.onTouchEvent(ev) || super.onTouchEvent(ev) || detector.onTouchEvent(ev) ;
+    }
+
+
+    public boolean onTouch(View view, MotionEvent event) {
 //        System.out.println(event.getAction() + "::::" + view);
-        if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.middleReleased){
-            switch (view.getId()){
+        if (event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.middleReleased) {
+            switch (view.getId()) {
                 case R.id.button1:
                     textViewTop.setText("A");
                     textViewRight.setText("B");
@@ -126,82 +195,107 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             }
             middleReleased.setVisibility(View.INVISIBLE);
             middlePressed.setVisibility(View.VISIBLE);
-        }else if(event.getAction() == MotionEvent.ACTION_UP){
-            middleReleased.setVisibility((View.VISIBLE));
-            middlePressed.setVisibility(View.INVISIBLE);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            int x = (int) event.getRawX();
+            int y = (int) event.getRawY();
+            System.out.println("x: " + x + " y: " + y);
+            Rect rect = textViewTop.getClipBounds();
+            System.out.println(rect.contains(x,y));
+            if(textViewTop.getClipBounds().contains(x,y)) {
+                String bla = textViewField.getText().toString();
+                String blub = textViewTop.getText().toString();
+                textViewField.setText(bla + blub);
+            }
 
-            System.out.println(view.getId());
+
+
+            middlePressed.setVisibility(View.INVISIBLE);
+            middleReleased.setVisibility((View.VISIBLE));
+
+//            System.out.println(view.getId());
         }
-//        else if(view.getId() == R.id.middleReleased){
-//            System.out.println("Yo");
-//            return super.onTouchEvent(event);
-//        }
-//        switch ( event.getAction() ) {
-//            case MotionEvent.ACTION_DOWN: System.out.println("Down");
-//                break;
-//            case MotionEvent.ACTION_UP: System.out.println("Up");
-//                System.out.println(event.getX() + "::" + event.getY());
-//                break;
-//        }
+
         return true;
     }
 
+
+
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (gestureDetector.onTouchEvent(event)) {
-            return true;
-        }
-        return super.onTouchEvent(event);
+    public boolean onDown(MotionEvent e) {
+        return false;
     }
 
+    @Override
+    public void onShowPress(MotionEvent e) {
 
-    private void onLeftSwipe() {
-
-        System.out.println("Left");
-        // Do something
     }
 
-    private void onRightSwipe() {
-        // Do something
-
-        System.out.println("Right");
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
     }
 
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
 
+    @Override
+    public void onLongPress(MotionEvent e) {
 
-    // Private class for gestures
-    private class SwipeGestureDetector
-            extends GestureDetector.SimpleOnGestureListener {
-        // Swipe properties, you can change it to make the swipe
-        // longer or shorter and speed
-        private static final int SWIPE_MIN_DISTANCE = 120;
-        private static final int SWIPE_MAX_OFF_PATH = 200;
-        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    }
 
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2,
-                               float velocityX, float velocityY) {
-            try {
-                float diffAbs = Math.abs(e1.getY() - e2.getY());
-                float diff = e1.getX() - e2.getX();
-
-                if (diffAbs > SWIPE_MAX_OFF_PATH)
-                    return false;
-
-                // Left swipe
-                if (diff > SWIPE_MIN_DISTANCE
-                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    MainActivity.this.onLeftSwipe();
-
-                    // Right swipe
-                } else if (-diff > SWIPE_MIN_DISTANCE
-                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    MainActivity.this.onRightSwipe();
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        boolean result = false;
+        try {
+            float diffY = e2.getY() - e1.getY();
+            float diffX = e2.getX() - e1.getX();
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX > 0) {
+                        onSwipeRight();
+                    } else {
+                        onSwipeLeft();
+                    }
                 }
-            } catch (Exception e) {
-                Log.e("YourActivity", "Error on gestures");
+                result = true;
             }
-            return false;
+            else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffY > 0) {
+                    onSwipeBottom();
+                } else {
+                    onSwipeTop();
+                }
+            }
+            result = true;
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
+        return result;
+
     }
+
+    public void onSwipeRight(){
+        String text = (String) textViewField.getText();
+        text += " jo";
+        textViewField.setText(text);
+    }
+    public void onSwipeLeft(){
+        String text = (String) textViewField.getText();
+        if(text.length() > 0) {
+            text = text.substring(0, text.length() - 1);
+        }
+        textViewField.setText(text);
+    }
+    public void onSwipeBottom(){
+        // TODO: kleinbuchstaben layout
+        System.out.println("Bottom");
+    }
+    public void onSwipeTop(){
+        // TODO: großbuchstaben layout
+        System.out.println("Top");
+    }
+
 }

@@ -8,188 +8,25 @@
     tools:context="com.example.baschdi.androidweartextinput.MainActivity"
     tools:deviceIds="wear_square">
 
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-  <!--  <LinearLayout
-        android:id="@+id/north"
-        android:layout_width="fill_parent"
-        android:layout_height="10pt"
-        android:layout_alignParentTop="true"
-        android:gravity="center_horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="10pt"
-            android:text="  A   B   C   D"
-            android:id="@+id/button1"
-            android:layout_weight="1"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"
-            android:layout_gravity="top|left"/>
+    <!-- other views go here -->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="10pt"
-            android:text="E   F   G   H  "
-            android:id="@+id/button2"
-            android:layout_weight="1"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"
-            android:layout_gravity="top|right" />
+    <android.support.wearable.view.DismissOverlayView
+        android:id="@+id/dismiss_overlay"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+    </FrameLayout>
 
-    </LinearLayout>
-
-hier1
-    <Button
-        android:layout_width="0px"
-        android:layout_height="100px"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:background="@drawable/triangle"/>
-
-    <ImageView
-        android:id="@+id/do_nothing1"
-        android:layout_width="150dp"
-        android:layout_height="85dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="-50dp"
-        android:layout_marginTop="-153dp"
-        android:background="@drawable/triangle"
-        android:soundEffectsEnabled="false"
-        android:layout_gravity="top|left">
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/do_nothing2"
-        android:layout_width="150dp"
-        android:layout_height="85dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:rotation="270"
-        android:layout_marginRight="-33dp"
-        android:layout_marginTop="-118dp"
-        android:background="@drawable/triangle"
-        android:soundEffectsEnabled="false"
-        android:layout_gravity="top|right">
-    </ImageView>
-
-hier2
-
-    <LinearLayout
-        android:id="@+id/south"
-        android:layout_width="fill_parent"
-        android:layout_height="10pt"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="X   W   V   U"
-            android:layout_weight="1"
-            android:id="@+id/button3"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="T   S   R   Q"
-            android:layout_weight="1"
-            android:id="@+id/button4"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/west"
-        android:layout_width="10pt"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/south"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/north"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:layout_alignParentTop="false">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="€   @   ?     !"
-            android:id="@+id/button5"
-            android:layout_weight="1"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=",     .    Z    Y"
-            android:id="@+id/button6"
-            android:layout_weight="1"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/east"
-        android:layout_width="10pt"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/south"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/north"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:layout_alignParentTop="false">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I    J  K  L"
-            android:layout_weight="1"
-            android:id="@+id/button7"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="M  N  O  P"
-            android:layout_weight="1"
-            android:id="@+id/button8"
-            android:background="@drawable/rect_buttons"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/south"
-        android:layout_below="@id/north"
-        android:layout_toLeftOf="@id/east"
-        android:layout_toRightOf="@id/west"
-        android:background="@drawable/kreuz"
-        android:gravity="center"
-        android:id="@+id/middle"
-        android:textColor="@color/black"
-        android:textAppearance="@android:style/TextAppearance.Large">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="A"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-80dp"
-            android:textSize="35dp"
-            android:textColor="#000000" />
-    </RelativeLayout>
-    -->
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/rootView"
         android:background="@drawable/layoutneu">
         <Button
             android:layout_width="70dp"

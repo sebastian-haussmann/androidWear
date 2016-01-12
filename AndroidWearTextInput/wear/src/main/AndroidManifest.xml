@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Android Wear Text Input"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.DeviceDefault">
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.baschdi.androidweartextinput.MainActivity"
             android:label="Android Wear Text Input">
