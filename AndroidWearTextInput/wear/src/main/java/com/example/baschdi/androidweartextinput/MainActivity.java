@@ -1,8 +1,11 @@
 package com.example.baschdi.androidweartextinput;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
     private TextView textViewTop, textViewRight, textViewBottom, textViewLeft, textViewField;
     private RelativeLayout middlePressed, middleReleased;
+
+    private GestureDetector gestureDetector;
 
 
     @Override
@@ -59,14 +64,16 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         button6.setOnTouchListener(this);
         button7.setOnTouchListener(this);
         button8.setOnTouchListener(this);
-      //  middle.setOnTouchListener(this);
+        middleReleased.setOnTouchListener(this);
+
+        gestureDetector = new GestureDetector(new SwipeGestureDetector());
 
 
     }
 
     public boolean onTouch (View view, MotionEvent event){
 //        System.out.println(event.getAction() + "::::" + view);
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.middleReleased){
             switch (view.getId()){
                 case R.id.button1:
                     textViewTop.setText("A");
@@ -125,6 +132,10 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
             System.out.println(view.getId());
         }
+//        else if(view.getId() == R.id.middleReleased){
+//            System.out.println("Yo");
+//            return super.onTouchEvent(event);
+//        }
 //        switch ( event.getAction() ) {
 //            case MotionEvent.ACTION_DOWN: System.out.println("Down");
 //                break;
@@ -133,5 +144,64 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 //                break;
 //        }
         return true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gestureDetector.onTouchEvent(event)) {
+            return true;
+        }
+        return super.onTouchEvent(event);
+    }
+
+
+    private void onLeftSwipe() {
+
+        System.out.println("Left");
+        // Do something
+    }
+
+    private void onRightSwipe() {
+        // Do something
+
+        System.out.println("Right");
+    }
+
+
+
+    // Private class for gestures
+    private class SwipeGestureDetector
+            extends GestureDetector.SimpleOnGestureListener {
+        // Swipe properties, you can change it to make the swipe
+        // longer or shorter and speed
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2,
+                               float velocityX, float velocityY) {
+            try {
+                float diffAbs = Math.abs(e1.getY() - e2.getY());
+                float diff = e1.getX() - e2.getX();
+
+                if (diffAbs > SWIPE_MAX_OFF_PATH)
+                    return false;
+
+                // Left swipe
+                if (diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    MainActivity.this.onLeftSwipe();
+
+                    // Right swipe
+                } else if (-diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    MainActivity.this.onRightSwipe();
+                }
+            } catch (Exception e) {
+                Log.e("YourActivity", "Error on gestures");
+            }
+            return false;
+        }
     }
 }
