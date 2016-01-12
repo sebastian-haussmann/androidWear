@@ -201,7 +201,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/textViewField"
                 android:textColor="#000000"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 android:layout_centerInParent="true" />
 
         </RelativeLayout>

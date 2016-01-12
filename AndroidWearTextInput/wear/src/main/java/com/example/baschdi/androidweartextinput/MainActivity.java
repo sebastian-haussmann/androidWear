@@ -288,7 +288,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     public void onSwipeRight(){
         String text = (String) textViewField.getText();
-        text += " jo";
+        text += " ";
         textViewField.setText(text);
     }
     public void onSwipeLeft(){
