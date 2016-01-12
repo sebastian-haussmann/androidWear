@@ -120,14 +120,15 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         txtView.postDelayed(new Runnable() {
             @Override
             public void run() {
+                int[] location = new int[2];
                 view.invalidate();
-                int x1 = (int) view.getLeft();
+                view.getLocationOnScreen(location);
+                int x1 = location[0];
                 int x2 = x1 + view.getWidth();
-                int y1 = (int) view.getTop();
+                int y1 = location[1];
                 int y2 = y1 +  view.getHeight();
 
-                System.out.println(x1 + "-" + y1 + "-" + x2 + "-" + y2);
-                textViewTop.setClipBounds(new Rect(x1, y1, x2, y2));
+                view.setClipBounds(new Rect(x1, y1, x2, y2));
             }
         }, 1);
     }
@@ -198,22 +199,30 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             int x = (int) event.getRawX();
             int y = (int) event.getRawY();
-            System.out.println("x: " + x + " y: " + y);
-            Rect rect = textViewTop.getClipBounds();
-            System.out.println(rect.contains(x,y));
             if(textViewTop.getClipBounds().contains(x,y)) {
-                String bla = textViewField.getText().toString();
-                String blub = textViewTop.getText().toString();
-                textViewField.setText(bla + blub);
+                String str1 = textViewField.getText().toString();
+                String str2 = textViewTop.getText().toString();
+                textViewField.setText(str1 + str2);
             }
-
-
-
+            if(textViewLeft.getClipBounds().contains(x,y)) {
+                String str1 = textViewField.getText().toString();
+                String str2 = textViewLeft.getText().toString();
+                textViewField.setText(str1 + str2);
+            }
+            if(textViewBottom.getClipBounds().contains(x,y)) {
+                String str1 = textViewField.getText().toString();
+                String str2 = textViewBottom.getText().toString();
+                textViewField.setText(str1 + str2);
+            }
+            if(textViewRight.getClipBounds().contains(x,y)) {
+                String str1 = textViewField.getText().toString();
+                String str2 = textViewRight.getText().toString();
+                textViewField.setText(str1 + str2);
+            }
             middlePressed.setVisibility(View.INVISIBLE);
             middleReleased.setVisibility((View.VISIBLE));
-
-//            System.out.println(view.getId());
         }
+
 
         return true;
     }
