@@ -1,19 +1,14 @@
 package com.example.baschdi.androidweartextinput;
 
 import android.app.Activity;
-import android.content.Context;
-import android.gesture.GestureOverlayView;
-import android.graphics.Rect;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.wearable.view.DismissOverlayView;
 import android.support.wearable.view.WatchViewStub;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,17 +34,17 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
 
 
 
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-            }
-        });
+//        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+//        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
+//            @Override
+//            public void onLayoutInflated(WatchViewStub stub) {
+//                mTextView = (TextView) stub.findViewById(R.id.text);
+//            }
+//        });
 
         setContentView(R.layout.rect_activity_main);
 
@@ -67,13 +62,13 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         rootView = (RelativeLayout) findViewById(R.id.rootView);
 
         textViewTop = (TextView) findViewById(R.id.textViewTop);
-        setTextViewClippingBounds(textViewTop);
+//        setTextViewClippingBounds(textViewTop);
         textViewRight = (TextView) findViewById(R.id.textViewRight);
-        setTextViewClippingBounds(textViewRight);
+//        setTextViewClippingBounds(textViewRight);
         textViewBottom = (TextView) findViewById(R.id.textViewBottom);
-        setTextViewClippingBounds(textViewBottom);
+//        setTextViewClippingBounds(textViewBottom);
         textViewLeft = (TextView) findViewById(R.id.textViewLeft);
-        setTextViewClippingBounds(textViewLeft);
+//        setTextViewClippingBounds(textViewLeft);
         textViewField = (TextView) findViewById(R.id.textViewField);
 
 
@@ -90,8 +85,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
 
         detector = new GestureDetector(this,this);
-
-//        middleReleased.setOn
 
         // Obtain the DismissOverlayView element
         mDismissOverlay = (DismissOverlayView) findViewById(R.id.dismiss_overlay);
@@ -115,23 +108,23 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         });
     }
 
-    public void setTextViewClippingBounds(TextView txtView) {
-        final TextView view = txtView;
-        txtView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int[] location = new int[2];
-                view.invalidate();
-                view.getLocationOnScreen(location);
-                int x1 = location[0];
-                int x2 = x1 + view.getWidth();
-                int y1 = location[1];
-                int y2 = y1 +  view.getHeight();
-
-                view.setClipBounds(new Rect(x1, y1, x2, y2));
-            }
-        }, 1);
-    }
+//    public void setTextViewClippingBounds(TextView txtView) {
+//        final TextView view = txtView;
+//        txtView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                int[] location = new int[2];
+//                view.invalidate();
+//                view.getLocationOnScreen(location);
+//                int x1 = location[0];
+//                int x2 = x1 + view.getWidth();
+//                int y1 = location[1];
+//                int y2 = y1 +  view.getHeight();
+//
+//                view.setClipBounds(new Rect(x1, y1, x2, y2));
+//            }
+//        }, 1);
+//    }
 
     // Capture long presses
     @Override
@@ -199,32 +192,54 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             int x = (int) event.getRawX();
             int y = (int) event.getRawY();
-            if(textViewTop.getClipBounds().contains(x,y)) {
+            PointF topLeft = new PointF(middlePressed.getX(), middlePressed.getY());
+            PointF topRight = new PointF(middlePressed.getX()+middlePressed.getWidth(), middlePressed.getY());
+            PointF bottomLeft = new PointF(middlePressed.getX(), middlePressed.getY()+middlePressed.getHeight());
+            PointF bottomRight = new PointF(middlePressed.getX()+middlePressed.getWidth(), middlePressed.getY()+middlePressed.getHeight());
+            PointF middle = new PointF(middlePressed.getX()+middlePressed.getWidth()/2, middlePressed.getY()+middlePressed.getHeight()/2);
+            PointF pressed =  new PointF( x, y);
+
+            if(pointInTriangle(topLeft,topRight,middle,pressed)) {
                 String str1 = textViewField.getText().toString();
                 String str2 = textViewTop.getText().toString();
                 textViewField.setText(str1 + str2);
             }
-            if(textViewLeft.getClipBounds().contains(x,y)) {
+            if(pointInTriangle(topLeft,bottomLeft,middle,pressed)) {
                 String str1 = textViewField.getText().toString();
                 String str2 = textViewLeft.getText().toString();
                 textViewField.setText(str1 + str2);
             }
-            if(textViewBottom.getClipBounds().contains(x,y)) {
+            if(pointInTriangle(bottomLeft,bottomRight,middle,pressed)) {
                 String str1 = textViewField.getText().toString();
                 String str2 = textViewBottom.getText().toString();
                 textViewField.setText(str1 + str2);
             }
-            if(textViewRight.getClipBounds().contains(x,y)) {
+            if(pointInTriangle(topRight,bottomRight,middle,pressed)) {
                 String str1 = textViewField.getText().toString();
                 String str2 = textViewRight.getText().toString();
                 textViewField.setText(str1 + str2);
             }
+
             middlePressed.setVisibility(View.INVISIBLE);
             middleReleased.setVisibility((View.VISIBLE));
         }
 
 
         return true;
+    }
+
+    public boolean pointInTriangle(PointF point1, PointF point2, PointF point3, PointF pointPressed){
+        float value1 = ((point2.y - point3.y)*(pointPressed.x - point3.x) + (point3.x - point2.x)*(pointPressed.y - point3.y)) /
+                ((point2.y - point3.y)*(point1.x - point3.x) + (point3.x - point2.x)*(point1.y - point3.y));
+        float value2 = ((point3.y - point1.y)*(pointPressed.x - point3.x) + (point1.x - point3.x)*(pointPressed.y - point3.y)) /
+                ((point2.y - point3.y)*(point1.x - point3.x) + (point3.x - point2.x)*(point1.y - point3.y));
+        float value3 = 1.0f - value1 - value2;
+
+        if(value1 > 0 && value2 > 0 && value3 > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
