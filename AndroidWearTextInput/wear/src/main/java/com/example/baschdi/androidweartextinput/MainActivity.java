@@ -29,6 +29,8 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     private static final int SWIPE_THRESHOLD = 100;
     private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
+    private int symbolSet = 0;
+
 
 
     @Override
@@ -139,52 +141,148 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         if (event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.middleReleased) {
             switch (view.getId()) {
                 case R.id.button1:
-                    textViewTop.setText("A");
-                    textViewRight.setText("B");
-                    textViewBottom.setText("C");
-                    textViewLeft.setText("D");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("A");
+                        textViewRight.setText("B");
+                        textViewBottom.setText("C");
+                        textViewLeft.setText("D");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("a");
+                        textViewRight.setText("b");
+                        textViewBottom.setText("c");
+                        textViewLeft.setText("d");
+                    }else{
+                        textViewTop.setText("1");
+                        textViewRight.setText("2");
+                        textViewBottom.setText("3");
+                        textViewLeft.setText("4");
+                    }
                     break;
                 case R.id.button2:
-                    textViewTop.setText("E");
-                    textViewRight.setText("F");
-                    textViewBottom.setText("G");
-                    textViewLeft.setText("H");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("E");
+                        textViewRight.setText("F");
+                        textViewBottom.setText("G");
+                        textViewLeft.setText("H");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("e");
+                        textViewRight.setText("f");
+                        textViewBottom.setText("g");
+                        textViewLeft.setText("h");
+                    }else{
+                        textViewTop.setText("5");
+                        textViewRight.setText("6");
+                        textViewBottom.setText("7");
+                        textViewLeft.setText("8");
+                    }
                     break;
                 case R.id.button3:
-                    textViewTop.setText("I");
-                    textViewRight.setText("J");
-                    textViewBottom.setText("K");
-                    textViewLeft.setText("L");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("I");
+                        textViewRight.setText("J");
+                        textViewBottom.setText("K");
+                        textViewLeft.setText("L");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("i");
+                        textViewRight.setText("j");
+                        textViewBottom.setText("k");
+                        textViewLeft.setText("l");
+                    }else{
+                        textViewTop.setText("9");
+                        textViewRight.setText("0");
+                        textViewBottom.setText("<");
+                        textViewLeft.setText(">");
+                    }
                     break;
                 case R.id.button4:
-                    textViewTop.setText("M");
-                    textViewRight.setText("N");
-                    textViewBottom.setText("O");
-                    textViewLeft.setText("P");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("M");
+                        textViewRight.setText("N");
+                        textViewBottom.setText("O");
+                        textViewLeft.setText("P");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("m");
+                        textViewRight.setText("n");
+                        textViewBottom.setText("o");
+                        textViewLeft.setText("p");
+                    }else{
+                        textViewTop.setText("+");
+                        textViewRight.setText("-");
+                        textViewBottom.setText("*");
+                        textViewLeft.setText("/");
+                    }
                     break;
                 case R.id.button5:
-                    textViewTop.setText("Q");
-                    textViewRight.setText("R");
-                    textViewBottom.setText("S");
-                    textViewLeft.setText("T");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("Q");
+                        textViewRight.setText("R");
+                        textViewBottom.setText("S");
+                        textViewLeft.setText("T");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("q");
+                        textViewRight.setText("r");
+                        textViewBottom.setText("s");
+                        textViewLeft.setText("t");
+                    }else{
+                        textViewTop.setText("(");
+                        textViewRight.setText(")");
+                        textViewBottom.setText("[");
+                        textViewLeft.setText("]");
+                    }
                     break;
                 case R.id.button6:
-                    textViewTop.setText("U");
-                    textViewRight.setText("V");
-                    textViewBottom.setText("W");
-                    textViewLeft.setText("X");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("U");
+                        textViewRight.setText("V");
+                        textViewBottom.setText("W");
+                        textViewLeft.setText("X");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("u");
+                        textViewRight.setText("v");
+                        textViewBottom.setText("w");
+                        textViewLeft.setText("x");
+                    }else{
+                        textViewTop.setText("%");
+                        textViewRight.setText("$");
+                        textViewBottom.setText("§");
+                        textViewLeft.setText("\"");
+                    }
                     break;
                 case R.id.button7:
-                    textViewTop.setText("Y");
-                    textViewRight.setText("Z");
-                    textViewBottom.setText(".");
-                    textViewLeft.setText(",");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("Y");
+                        textViewRight.setText("Z");
+                        textViewBottom.setText(".");
+                        textViewLeft.setText(",");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("y");
+                        textViewRight.setText("z");
+                        textViewBottom.setText(":");
+                        textViewLeft.setText(";");
+                    }else{
+                        textViewTop.setText("ß");
+                        textViewRight.setText("ä");
+                        textViewBottom.setText("ö");
+                        textViewLeft.setText("ü");
+                    }
                     break;
                 case R.id.button8:
-                    textViewTop.setText("!");
-                    textViewRight.setText("?");
-                    textViewBottom.setText("@");
-                    textViewLeft.setText("€");
+                    if(symbolSet == 0) {
+                        textViewTop.setText("!");
+                        textViewRight.setText("?");
+                        textViewBottom.setText("@");
+                        textViewLeft.setText("€");
+                    }else if(symbolSet == 1){
+                        textViewTop.setText("#");
+                        textViewRight.setText("-");
+                        textViewBottom.setText("_");
+                        textViewLeft.setText("&");
+                    }else{
+                        textViewTop.setText("^");
+                        textViewRight.setText("°");
+                        textViewBottom.setText("'");
+                        textViewLeft.setText("|");
+                    }
                     break;
             }
             middleReleased.setVisibility(View.INVISIBLE);
@@ -256,6 +354,27 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        if(symbolSet == 0 || symbolSet == 1){
+            symbolSet = 2;
+            button1.setText("1  2  3  4");
+            button2.setText("5  6  7  8");
+            button3.setText("9   0   <   >");
+            button4.setText("+   -   *   /");
+            button5.setText("]  [  )  (");
+            button6.setText("\"  §  $  %");
+            button7.setText("ü    ö   ä   ß");
+            button8.setText("|    '   °   ^");
+        }else{
+            symbolSet = 0;
+            button1.setText("A  B  C  D");
+            button2.setText("E  F  G  H");
+            button3.setText("I   J   K   L");
+            button4.setText("M   N   O   P");
+            button5.setText("T  S  R  Q");
+            button6.setText("X  W  V  U");
+            button7.setText(",    .   Z   Y");
+            button8.setText("€   @   ?   !");
+        }
         return false;
     }
 
@@ -315,11 +434,31 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     }
     public void onSwipeBottom(){
         // TODO: kleinbuchstaben layout
-        System.out.println("Bottom");
+        if(symbolSet == 0){
+            symbolSet = 1;
+            button1.setText("a  b  c  d");
+            button2.setText("e  f  g  h");
+            button3.setText("i   j   k   l");
+            button4.setText("m   n   o   p");
+            button5.setText("t  s  r  q");
+            button6.setText("x  w  v  u");
+            button7.setText(";    :   z   y");
+            button8.setText("&   _   -   #");
+        }
     }
     public void onSwipeTop(){
         // TODO: großbuchstaben layout
-        System.out.println("Top");
+        if(symbolSet == 1){
+            symbolSet = 0;
+            button1.setText("A  B  C  D");
+            button2.setText("E  F  G  H");
+            button3.setText("I   J   K   L");
+            button4.setText("M   N   O   P");
+            button5.setText("T  S  R  Q");
+            button6.setText("X  W  V  U");
+            button7.setText(",    .   Z   Y");
+            button8.setText("€   @   ?   !");
+        }
     }
 
 }
