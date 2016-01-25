@@ -2,4 +2,36 @@
     <string name="app_name">AndroidWearTextInput</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+
+    <!-- BIG ALPHABET -->
+    <string name="text_top_left_upper">A&#032;&#032;B&#032;&#032;C&#032;&#032;D</string>
+    <string name="text_top_right_upper">E&#032;&#032;F&#032;&#032;G&#032;&#032;H</string>
+    <string name="text_right_top_upper">I\nJ\nK\nL</string>
+    <string name="text_right_bottom_upper">M\nN\nO\nP</string>
+    <string name="text_bottom_right_upper">T&#032;&#032;S&#032;&#032;R&#032;&#032;Q</string>
+    <string name="text_bottom_left_upper">X&#032;&#032;W&#032;&#032;V&#032;&#032;U</string>
+    <string name="text_left_bottom_upper">Ö\nÄ\nZ\nY</string>
+    <string name="text_left_top_upper">,\n?\n!\nÜ</string>
+
+    <!-- SMALL ALPHABET -->
+    <string name="text_top_left_lower">a&#032;&#032;b&#032;&#032;c&#032;&#032;d</string>
+    <string name="text_top_right_lower">e&#032;&#032;f&#032;&#032;g&#032;&#032;h</string>
+    <string name="text_right_top_lower">i\nj\nk\nl</string>
+    <string name="text_right_bottom_lower">m\nn\no\np</string>
+    <string name="text_bottom_right_lower">t&#032;&#032;s&#032;&#032;r&#032;&#032;q</string>
+    <string name="text_bottom_left_lower">x&#032;&#032;w&#032;&#032;v&#032;&#032;u</string>
+    <string name="text_left_bottom_lower">ö\nä\nz\ny</string>
+    <string name="text_left_top_lower">,\n?\n!\nü</string>
+
+    <!-- ADDITIONAL ALPHABET -->
+    <!-- TODO
+    <string name="text_top_left_additional"></string>
+    <string name="text_top_right_additional"></string>
+    <string name="text_right_top_additional"></string>
+    <string name="text_right_bottom_additional"></string>
+    <string name="text_bottom_right_additional"></string>
+    <string name="text_bottom_left_additional"></string>
+    <string name="text_left_bottom_additional"></string>
+    <string name="text_left_top_additional"></string>
+    -->
 </resources>
