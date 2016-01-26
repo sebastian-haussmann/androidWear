@@ -45,7 +45,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                     isRound = false;
                     rootView = getLayoutInflater().inflate(R.layout.rect_activity_main, stub);
                 }
-                stub.addView(rootView);
                 // read ui elements
                 initialiseUi(rootView);
                 return insets;

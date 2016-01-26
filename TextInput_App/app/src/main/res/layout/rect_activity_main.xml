@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/text_top_right_upper"
+                android:text="@string/text_top_left_upper"
                 android:id="@+id/tvTopLeft"
                 style="@style/AppTheme.TextViewRectLayout"
                 android:layout_weight="0.5" />
@@ -127,8 +127,8 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
             android:layout_centerInParent="true"
             android:id="@+id/relLayout_Inner"
             android:background="@android:color/white">
