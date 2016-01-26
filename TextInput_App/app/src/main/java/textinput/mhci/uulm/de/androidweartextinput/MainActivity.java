@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements View.OnTouchListener, GestureOverlayView.OnGestureListener{
+public class MainActivity extends Activity implements View.OnTouchListener, GestureDetector.OnGestureListener{
+
+    public static final int SYMBOLSET_UPPER = 1;
+    public static final int SYMBOLSET_LOWER = 0;
+    public static final int SYMBOLSET_ADDITIONAL = 2;
 
     // view attributes
     private TextView tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
@@ -22,7 +27,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     // app attributes
     private String strInput;
     private boolean isRound;
-
+    private int symbolSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,17 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                     isRound = false;
                     rootView = getLayoutInflater().inflate(R.layout.rect_activity_main, stub);
                 }
+                // initialise app
+                initialiseApp();
                 // read ui elements
                 initialiseUi(rootView);
                 return insets;
             }
         });
+    }
+
+    public void initialiseApp() {
+        symbolSet = SYMBOLSET_UPPER;
     }
 
 
@@ -64,13 +75,21 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     private void initialiseUi(View rootView) {
         // get outer TextViews
         tvTopLeft = (TextView) rootView.findViewById(R.id.tvTopLeft);
+        tvTopLeft.setOnTouchListener(this);
         tvTopRight = (TextView) rootView.findViewById(R.id.tvTopRight);
+        tvTopRight.setOnTouchListener(this);
         tvRightTop = (TextView) rootView.findViewById(R.id.tvRightTop);
+        tvRightTop.setOnTouchListener(this);
         tvRightBottom = (TextView) rootView.findViewById(R.id.tvRightBottom);
+        tvRightBottom.setOnTouchListener(this);
         tvBottomRight = (TextView) rootView.findViewById(R.id.tvBottomRight);
+        tvBottomRight.setOnTouchListener(this);
         tvBottomLeft = (TextView) rootView.findViewById(R.id.tvBottomLeft);
+        tvBottomLeft.setOnTouchListener(this);
         tvLeftBottom = (TextView) rootView.findViewById(R.id.tvLeftBottom);
+        tvLeftBottom.setOnTouchListener(this);
         tvLeftTop = (TextView) rootView.findViewById(R.id.tvLeftTop);
+        tvLeftTop.setOnTouchListener(this);
         // get inner RelativeLayouts
         relLayoutSwipeContent = (RelativeLayout) rootView.findViewById(R.id.relLayout_SwipeContent);
         relLayoutTextContent = (RelativeLayout) rootView.findViewById(R.id.relLayout_TextContent);
@@ -80,7 +99,8 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvInnerTop = (TextView) rootView.findViewById(R.id.tvInnerTop);
         tvInnerRight = (TextView) rootView.findViewById(R.id.tvInnerRight);
         tvInnerBottom = (TextView) rootView.findViewById(R.id.tvInnerBottom);
-        tvInnerLeft = (TextView) rootView.findViewById(R.id.tvInnerBottom);
+        tvInnerLeft = (TextView) rootView.findViewById(R.id.tvInnerLeft);
+        tvInnerLeft.setText("BLUB");
     }
 
     public void switchInnerLayouts() {
@@ -125,30 +145,143 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     LISTENER
      */
 
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        System.out.println("ONTOUCH");
+        if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.relLayout_Inner ) {
+            System.out.println("ON TOUCH TEXTVIEW");
+            // button clicked
+            int id = view.getId();
+            handleOuterTextViewTouch(id);
+            relLayoutTextContent.setVisibility(View.GONE);
+            relLayoutSwipeContent.setVisibility(View.VISIBLE);
+        }
+
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            relLayoutSwipeContent.setVisibility(View.GONE);
+            relLayoutTextContent.setVisibility(View.VISIBLE);
+        }
+        return false;
+    }
+
+    /**
+     * Changes innerTextViews text.
+     * @param id
+     */
+    public void handleOuterTextViewTouch(int id) {
+        switch(id) {
+            case R.id.tvTopLeft:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("a", "b", "c", "d");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("A", "B", "C", "D");
+                } else {
+                    setInnerTextViews("1", "2", "3", "4");
+                }
+                break;
+            case R.id.tvTopRight:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("e", "f", "g", "h");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("E", "F", "G", "H");
+                } else {
+                    setInnerTextViews("5", "6", "7", "8");
+                }
+                break;
+            case R.id.tvRightTop:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("i", "j", "k", "l");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("I", "J", "K", "L");
+                } else {
+                    setInnerTextViews("9", "0", "<", ">");
+                }
+                break;
+            case R.id.tvRightBottom:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("m", "n", "o", "p");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("a", "b", "c", "d");
+                } else {
+                    setInnerTextViews("+", "-", "*", "/");
+                }
+                break;
+            case R.id.tvBottomRight:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("q", "r", "s", "t");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("Q", "R", "S", "T");
+                } else {
+                    setInnerTextViews("(", ")", "[", " ]");
+                }
+                break;
+            case R.id.tvBottomLeft:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("u", "v", "w", "x");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("U", "B", "C", "X");
+                } else {
+                    setInnerTextViews("%", "$", "§", "\"");
+                }
+                break;
+            case R.id.tvLeftBottom:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("y", "z", "ä", "ö");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("Y", "Z", "Ä", "Ö");
+                } else {
+                    setInnerTextViews("1", "2", "3", "4");
+                }
+                break;
+            case R.id.tvLeftTop:
+                if(symbolSet == SYMBOLSET_LOWER) {
+                    setInnerTextViews("a", "b", "c", "d");
+                } else if(symbolSet == SYMBOLSET_UPPER) {
+                    setInnerTextViews("A", "B", "C", "D");
+                } else {
+                    setInnerTextViews("1", "2", "3", "4");
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setInnerTextViews(String top, String right, String bottom, String left) {
+        tvInnerTop.setText(top);
+        tvInnerRight.setText(right);
+        tvInnerBottom.setText(bottom);
+        tvInnerLeft.setText(left);
+    }
+
 
     @Override
-    public void onGestureStarted(GestureOverlayView overlay, MotionEvent event) {
-        // TODO
+    public boolean onDown(MotionEvent e) {
+        return false;
     }
 
     @Override
-    public void onGesture(GestureOverlayView overlay, MotionEvent event) {
-        // TODO
+    public void onShowPress(MotionEvent e) {
+
     }
 
     @Override
-    public void onGestureEnded(GestureOverlayView overlay, MotionEvent event) {
-        // TODO
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
     }
 
     @Override
-    public void onGestureCancelled(GestureOverlayView overlay, MotionEvent event) {
-        // TODO
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        // TODO
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
     }
 }

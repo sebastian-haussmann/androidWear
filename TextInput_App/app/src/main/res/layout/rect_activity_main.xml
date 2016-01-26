@@ -147,7 +147,8 @@
                     android:layout_centerHorizontal="true"
                     android:textSize="10dp"
                     android:gravity="center"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:textColor="@android:color/black" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -164,7 +165,8 @@
                     android:id="@+id/tvInnerTop"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="22dp" />
+                    android:layout_marginTop="22dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -173,7 +175,8 @@
                     android:id="@+id/tvInnerRight"
                     android:layout_marginRight="22dp"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -182,7 +185,8 @@
                     android:id="@+id/tvInnerBottom"
                     android:layout_alignParentBottom="true"
                     android:layout_alignStart="@+id/tvInnerTop"
-                    android:layout_marginBottom="22dp" />
+                    android:layout_marginBottom="22dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -191,7 +195,8 @@
                     android:id="@+id/tvInnerLeft"
                     android:layout_alignTop="@+id/tvInnerRight"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="22dp" />
+                    android:layout_marginLeft="22dp"
+                    android:textColor="@android:color/black" />
             </RelativeLayout>
         </RelativeLayout>
 

@@ -2,7 +2,8 @@
 <resources>
 
     <style name="AppTheme" parent="@android:style/Theme.Material.Light">
-
+        <item name="android:windowSwipeToDismiss">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.TextViewRectLayout">
