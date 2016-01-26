@@ -1,5 +1,6 @@
 package textinput.mhci.uulm.de.androidweartextinput;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.gesture.GestureOverlayView;
 import android.graphics.PointF;
@@ -9,6 +10,7 @@ import android.support.wearable.view.WatchViewStub;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -23,23 +25,16 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     public static final int SYMBOLSET_ADDITIONAL = 2;
 
     // view attributes
-
     private View rootView;
-
-
+    private Button tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
     private RelativeLayout relLayoutTextContent, relLayoutSwipeContent, relLayoutInner;
     private TextView tvTextInput;
     private TextView tvInnerTop, tvInnerRight, tvInnerBottom, tvInnerLeft;
-
     private DismissOverlayView dismissOverlayView;
-
     private GestureDetector gestureDetector;
     private GestureDetector longPressDetector;
 
-    private Button tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
     // app attributes
-    private String strInput;
-    private boolean isRound;
     private int symbolSet;
 
     @Override
@@ -52,40 +47,40 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         stub.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                System.out.println("SELECT LAYOUT");
                 if (insets.isRound()) {
-                    System.out.println("ROUND LAYOUT");
-                    isRound = true;
                     rootView = getLayoutInflater().inflate(R.layout.round_activity_main, stub);
 
                 } else {
-                    System.out.println("SQUARE LAYOUT");
-                    isRound = false;
                     rootView = getLayoutInflater().inflate(R.layout.rect_activity_main, stub);
                 }
                 symbolSet = SYMBOLSET_UPPER;
                 // read ui elements
                 initialiseUi(rootView);
+                // create dismissOverlay
+                dismissOverlayView = new DismissOverlayView(MainActivity.this);
+                dismissOverlayView.showIntroIfNecessary();
+
                 // create gestureDetector
                 gestureDetector = new GestureDetector(MainActivity.this, MainActivity.this);
                 longPressDetector = new GestureDetector(MainActivity.this, new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public void onLongPress(MotionEvent e) {
-                        System.out.println("ON LONG PRESS");
+                        MainActivity.this.addContentView(dismissOverlayView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         dismissOverlayView.show();
-                        rootView.setVisibility(View.INVISIBLE);
                     }
                 });
-                dismissOverlayView.setOnTouchListener(new View.OnTouchListener(){
+                // add dissmiss to dissmisOverlay
+                dismissOverlayView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        rootView.setVisibility(View.VISIBLE);
+                        dismissOverlayView.setVisibility(View.GONE);
                         return false;
                     }
                 });
                 return insets;
             }
         });
+
     }
 
 
@@ -126,11 +121,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvInnerRight = (TextView) rootView.findViewById(R.id.tvInnerRight);
         tvInnerBottom = (TextView) rootView.findViewById(R.id.tvInnerBottom);
         tvInnerLeft = (TextView) rootView.findViewById(R.id.tvInnerLeft);
-        // get DismissOverlay
-        dismissOverlayView = (DismissOverlayView) findViewById(R.id.dismiss_overlay);
-        dismissOverlayView.showIntroIfNecessary();
-
-
     }
 
     public void switchInnerLayouts() {
@@ -192,20 +182,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-       // System.out.println(event.getAction());
-        System.out.println("ONTOUCH");
-   //     if(view != null) {
-            if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.relLayout_TextContent) {
-                System.out.println("ON TOUCH TEXTVIEW");
-                // action down
-                int id = view.getId();
-                handleOuterTextViewTouch(id);
-                switchInnerLayouts();
-
-       //     }
+        // check action down on buttons
+        if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.relLayout_TextContent) {
+            // action down
+            int id = view.getId();
+            handleOuterTextViewTouch(id);
+            switchInnerLayouts();
         } else if(event.getAction() == MotionEvent.ACTION_UP) {
-            System.out.println("ACTION UP");
-            // action up
+            // check action up location
             int x = (int) event.getRawX();
             int y = (int) event.getRawY();
             PointF topLeft = new PointF(relLayoutInner.getX(), relLayoutInner.getY());
