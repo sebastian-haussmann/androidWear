@@ -25,20 +25,20 @@
             android:gravity="center"
             android:id="@+id/linearLayout">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_top_left_upper"
                 android:id="@+id/tvTopLeft"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_top_right_upper"
                 android:id="@+id/tvTopRight"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5" />
         </LinearLayout>
 
@@ -54,21 +54,21 @@
             android:gravity="center"
             android:id="@+id/linearLayout2">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_right_top_upper"
                 android:id="@+id/tvRightTop"
                 android:layout_weight="0.5"
-                style="@style/AppTheme.TextViewRectLayout" />
+                style="@style/AppTheme.Button" />
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_right_bottom_upper"
                 android:id="@+id/tvRightBottom"
                 android:layout_weight="0.5"
-                style="@style/AppTheme.TextViewRectLayout" />
+                style="@style/AppTheme.Button" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,20 +81,20 @@
             android:gravity="center"
             android:id="@+id/linearLayout3">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_bottom_left_upper"
                 android:id="@+id/tvBottomLeft"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_bottom_right_upper"
                 android:id="@+id/tvBottomRight"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5" />
         </LinearLayout>
 
@@ -109,20 +109,20 @@
             android:weightSum="1"
             android:gravity="center">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_left_top_upper"
                 android:id="@+id/tvLeftTop"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5" />
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_left_bottom_upper"
                 android:id="@+id/tvLeftBottom"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5" />
         </LinearLayout>
 

@@ -10,6 +10,7 @@
     tools:context="textinput.mhci.uulm.de.androidweartextinput.MainActivity"
     tools:deviceIds="wear">
 
+
     <android.support.wearable.view.DismissOverlayView
         android:id="@+id/dismiss_overlay"
         android:layout_width="match_parent"

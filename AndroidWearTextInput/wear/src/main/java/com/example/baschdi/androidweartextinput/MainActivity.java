@@ -137,7 +137,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
 
     public boolean onTouch(View view, MotionEvent event) {
-//        System.out.println(event.getAction() + "::::" + view);
+        System.out.println(event.getAction() + "::::" + view);
         if (event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.middleReleased) {
             switch (view.getId()) {
                 case R.id.button1:

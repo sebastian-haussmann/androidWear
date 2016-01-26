@@ -10,6 +10,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,7 +26,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     private View rootView;
 
-    private TextView tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
 
     private RelativeLayout relLayoutTextContent, relLayoutSwipeContent, relLayoutInner;
     private TextView tvTextInput;
@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     private GestureDetector gestureDetector;
     private GestureDetector longPressDetector;
 
+    private Button tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
     // app attributes
     private String strInput;
     private boolean isRound;
@@ -72,7 +73,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                     public void onLongPress(MotionEvent e) {
                         System.out.println("ON LONG PRESS");
                         dismissOverlayView.show();
-                        rootView.setVisibility(View.INVISIBLE);
+                    //    rootView.setVisibility(View.INVISIBLE);
                     }
                 });
                 return insets;
@@ -91,21 +92,21 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
      */
     private void initialiseUi(View rootView) {
         // get outer TextViews
-        tvTopLeft = (TextView) rootView.findViewById(R.id.tvTopLeft);
+        tvTopLeft = (Button) rootView.findViewById(R.id.tvTopLeft);
         tvTopLeft.setOnTouchListener(this);
-        tvTopRight = (TextView) rootView.findViewById(R.id.tvTopRight);
+        tvTopRight = (Button) rootView.findViewById(R.id.tvTopRight);
         tvTopRight.setOnTouchListener(this);
-        tvRightTop = (TextView) rootView.findViewById(R.id.tvRightTop);
+        tvRightTop = (Button) rootView.findViewById(R.id.tvRightTop);
         tvRightTop.setOnTouchListener(this);
-        tvRightBottom = (TextView) rootView.findViewById(R.id.tvRightBottom);
+        tvRightBottom = (Button) rootView.findViewById(R.id.tvRightBottom);
         tvRightBottom.setOnTouchListener(this);
-        tvBottomRight = (TextView) rootView.findViewById(R.id.tvBottomRight);
+        tvBottomRight = (Button) rootView.findViewById(R.id.tvBottomRight);
         tvBottomRight.setOnTouchListener(this);
-        tvBottomLeft = (TextView) rootView.findViewById(R.id.tvBottomLeft);
+        tvBottomLeft = (Button) rootView.findViewById(R.id.tvBottomLeft);
         tvBottomLeft.setOnTouchListener(this);
-        tvLeftBottom = (TextView) rootView.findViewById(R.id.tvLeftBottom);
+        tvLeftBottom = (Button) rootView.findViewById(R.id.tvLeftBottom);
         tvLeftBottom.setOnTouchListener(this);
-        tvLeftTop = (TextView) rootView.findViewById(R.id.tvLeftTop);
+        tvLeftTop = (Button) rootView.findViewById(R.id.tvLeftTop);
         tvLeftTop.setOnTouchListener(this);
         // get inner RelativeLayouts
         relLayoutSwipeContent = (RelativeLayout) rootView.findViewById(R.id.relLayout_SwipeContent);
@@ -158,7 +159,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     }
 
     public void changeToAdditionals() {
-        // TODO
+        tvTopLeft.setText(getResources().getString(R.string.text_top_left_additional));
+        tvTopRight.setText(getResources().getString(R.string.text_top_right_additional));
+        tvRightTop.setText(getResources().getString(R.string.text_right_top_additional));
+        tvRightBottom.setText(getResources().getString(R.string.text_right_bottom_additional));
+        tvBottomRight.setText(getResources().getString(R.string.text_bottom_right_additional));
+        tvBottomLeft.setText(getResources().getString(R.string.text_bottom_left_additional));
+        tvLeftBottom.setText(getResources().getString(R.string.text_left_bottom_additional));
+        tvLeftTop.setText(getResources().getString(R.string.text_left_top_additional));
     }
 
     /*
@@ -169,23 +177,23 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        System.out.println("ONTOUCHEVENT");
+        //System.out.println("ONTOUCHEVENT");
         return super.onTouchEvent(event) || longPressDetector.onTouchEvent(event) || gestureDetector.onTouchEvent(event);
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        System.out.println(event.getAction());
+       // System.out.println(event.getAction());
         System.out.println("ONTOUCH");
-        if(view != null) {
-            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+   //     if(view != null) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.relLayout_TextContent) {
                 System.out.println("ON TOUCH TEXTVIEW");
                 // action down
                 int id = view.getId();
                 handleOuterTextViewTouch(id);
                 switchInnerLayouts();
 
-            }
+       //     }
         } else if(event.getAction() == MotionEvent.ACTION_UP) {
             System.out.println("ACTION UP");
             // action up
@@ -311,7 +319,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                 } else if(symbolSet == SYMBOLSET_UPPER) {
                     setInnerTextViews("Y", "Z", "Ä", "Ö");
                 } else {
-                    setInnerTextViews("x", "x", "x", "x");
+                    setInnerTextViews("#", "_", "@", "€");
                 }
                 break;
             case R.id.tvLeftTop:
@@ -320,7 +328,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                 } else if(symbolSet == SYMBOLSET_UPPER) {
                     setInnerTextViews("Ü", "&", "!", ",");
                 } else {
-                    setInnerTextViews("x", "x", "x", "x");
+                    setInnerTextViews("\\", "^", "°", "|");
                 }
                 break;
             default:
@@ -355,6 +363,13 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        if(symbolSet == SYMBOLSET_LOWER || symbolSet == SYMBOLSET_UPPER){
+            symbolSet = SYMBOLSET_ADDITIONAL;
+            changeToAdditionals();
+        }else{
+            symbolSet = SYMBOLSET_UPPER;
+            changeToUpperCase();
+        }
         return false;
     }
 

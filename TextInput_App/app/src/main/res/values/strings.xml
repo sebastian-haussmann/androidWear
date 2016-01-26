@@ -11,7 +11,7 @@
     <string name="text_bottom_right_upper">T&#032;&#032;S&#032;&#032;R&#032;&#032;Q</string>
     <string name="text_bottom_left_upper">X&#032;&#032;W&#032;&#032;V&#032;&#032;U</string>
     <string name="text_left_bottom_upper">Ö\nÄ\nZ\nY</string>
-    <string name="text_left_top_upper">,\n?\n!\nÜ</string>
+    <string name="text_left_top_upper">,\n!\n&#038;\nÜ</string>
 
     <!-- SMALL ALPHABET -->
     <string name="text_top_left_lower">a&#032;&#032;b&#032;&#032;c&#032;&#032;d</string>
@@ -21,17 +21,16 @@
     <string name="text_bottom_right_lower">t&#032;&#032;s&#032;&#032;r&#032;&#032;q</string>
     <string name="text_bottom_left_lower">x&#032;&#032;w&#032;&#032;v&#032;&#032;u</string>
     <string name="text_left_bottom_lower">ö\nä\nz\ny</string>
-    <string name="text_left_top_lower">,\n?\n!\nü</string>
+    <string name="text_left_top_lower">"?"\n.\nß\nü</string>
 
     <!-- ADDITIONAL ALPHABET -->
-    <!-- TODO
-    <string name="text_top_left_additional"></string>
-    <string name="text_top_right_additional"></string>
-    <string name="text_right_top_additional"></string>
-    <string name="text_right_bottom_additional"></string>
-    <string name="text_bottom_right_additional"></string>
-    <string name="text_bottom_left_additional"></string>
-    <string name="text_left_bottom_additional"></string>
-    <string name="text_left_top_additional"></string>
-    -->
+    <string name="text_top_left_additional">1&#032;&#032;2&#032;&#032;3&#032;&#032;4</string>
+    <string name="text_top_right_additional">5&#032;&#032;6&#032;&#032;7&#032;&#032;8</string>
+    <string name="text_right_top_additional">9\n0\n&#060;\n&#062;</string>
+    <string name="text_right_bottom_additional">+\n-\n*\n/</string>
+    <string name="text_bottom_right_additional">(&#032;&#032;)&#032;&#032;[&#032;&#032;]</string>
+    <string name="text_bottom_left_additional">\&#032;&#032;§&#032;&#032;$&#032;&#032;%</string>
+    <string name="text_left_bottom_additional">#\n_\n@\n€</string>
+    <string name="text_left_top_additional">"\"\n^\n°\n|"</string>
+
 </resources>

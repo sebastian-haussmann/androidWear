@@ -25,22 +25,22 @@
             android:gravity="center"
             android:id="@+id/linearLayout">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_top_left_upper"
                 android:id="@+id/tvTopLeft"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5"
                 android:gravity="bottom"
                 android:paddingBottom="4dp" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_top_right_upper"
                 android:id="@+id/tvTopRight"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5"
                 android:gravity="bottom"
                 android:paddingBottom="4dp" />
@@ -58,23 +58,23 @@
             android:gravity="center"
             android:id="@+id/linearLayout2">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_right_top_upper"
                 android:id="@+id/tvRightTop"
                 android:layout_weight="0.5"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:textAlignment="textStart"
                 android:paddingLeft="7dp" />
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_right_bottom_upper"
                 android:id="@+id/tvRightBottom"
                 android:layout_weight="0.5"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:textAlignment="textStart"
                 android:paddingLeft="7dp" />
         </LinearLayout>
@@ -89,22 +89,22 @@
             android:gravity="center"
             android:id="@+id/linearLayout3">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_bottom_left_upper"
                 android:id="@+id/tvBottomLeft"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5"
                 android:gravity="top"
                 android:paddingTop="3dp" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/text_bottom_right_upper"
                 android:id="@+id/tvBottomRight"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5"
                 android:gravity="top"
                 android:paddingTop="3dp" />
@@ -121,22 +121,22 @@
             android:weightSum="1"
             android:gravity="center">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_left_top_upper"
                 android:id="@+id/tvLeftTop"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5"
                 android:paddingRight="7dp"
                 android:textAlignment="textEnd" />
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_left_bottom_upper"
                 android:id="@+id/tvLeftBottom"
-                style="@style/AppTheme.TextViewRectLayout"
+                style="@style/AppTheme.Button"
                 android:layout_weight="0.5"
                 android:paddingRight="7dp"
                 android:textAlignment="textEnd" />
@@ -180,7 +180,8 @@
                     android:id="@+id/tvInnerTop"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="22dp" />
+                    android:layout_marginTop="22dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -189,7 +190,8 @@
                     android:id="@+id/tvInnerRight"
                     android:layout_marginRight="22dp"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -198,7 +200,8 @@
                     android:id="@+id/tvInnerBottom"
                     android:layout_alignParentBottom="true"
                     android:layout_alignStart="@+id/tvInnerTop"
-                    android:layout_marginBottom="22dp" />
+                    android:layout_marginBottom="22dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,7 +210,8 @@
                     android:id="@+id/tvInnerLeft"
                     android:layout_alignTop="@+id/tvInnerRight"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="22dp" />
+                    android:layout_marginLeft="22dp"
+                    android:textColor="@android:color/black" />
             </RelativeLayout>
         </RelativeLayout>
 
