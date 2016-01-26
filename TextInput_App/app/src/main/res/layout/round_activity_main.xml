@@ -157,13 +157,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Text"
+                    android:text=""
                     android:id="@+id/tvTextInput"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:textSize="10dp"
                     android:gravity="center"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:textColor="@android:color/black" />
             </RelativeLayout>
 
             <RelativeLayout
