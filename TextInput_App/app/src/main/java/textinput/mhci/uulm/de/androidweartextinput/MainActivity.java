@@ -73,7 +73,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                     public void onLongPress(MotionEvent e) {
                         System.out.println("ON LONG PRESS");
                         dismissOverlayView.show();
-                    //    rootView.setVisibility(View.INVISIBLE);
+                        rootView.setVisibility(View.INVISIBLE);
+                    }
+                });
+                dismissOverlayView.setOnTouchListener(new View.OnTouchListener(){
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        rootView.setVisibility(View.VISIBLE);
+                        return false;
                     }
                 });
                 return insets;
@@ -122,6 +129,8 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         // get DismissOverlay
         dismissOverlayView = (DismissOverlayView) findViewById(R.id.dismiss_overlay);
         dismissOverlayView.showIntroIfNecessary();
+
+
     }
 
     public void switchInnerLayouts() {
