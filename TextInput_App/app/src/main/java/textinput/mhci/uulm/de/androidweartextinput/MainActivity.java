@@ -95,6 +95,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvInnerTop = (TextView) rootView.findViewById(R.id.tvInnerTop);
         tvInnerRight = (TextView) rootView.findViewById(R.id.tvInnerRight);
         tvInnerBottom = (TextView) rootView.findViewById(R.id.tvInnerBottom);
+        tvInnerLeft = (TextView) rootView.findViewById(R.id.tvInnerLeft);
     }
 
     public void switchInnerLayouts() {
