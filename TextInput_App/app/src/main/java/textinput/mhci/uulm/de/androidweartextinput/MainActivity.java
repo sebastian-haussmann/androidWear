@@ -40,6 +40,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
             @Override
             public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
                 View rootView;
+                System.out.println("SELECT LAYOUT");
                 if (insets.isRound()) {
                     System.out.println("ROUND LAYOUT");
                     isRound = true;
@@ -50,17 +51,12 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                     isRound = false;
                     rootView = getLayoutInflater().inflate(R.layout.rect_activity_main, stub);
                 }
-                // initialise app
-                initialiseApp();
+                symbolSet = SYMBOLSET_UPPER;
                 // read ui elements
                 initialiseUi(rootView);
                 return insets;
             }
         });
-    }
-
-    public void initialiseApp() {
-        symbolSet = SYMBOLSET_UPPER;
     }
 
 
@@ -99,8 +95,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvInnerTop = (TextView) rootView.findViewById(R.id.tvInnerTop);
         tvInnerRight = (TextView) rootView.findViewById(R.id.tvInnerRight);
         tvInnerBottom = (TextView) rootView.findViewById(R.id.tvInnerBottom);
-        tvInnerLeft = (TextView) rootView.findViewById(R.id.tvInnerLeft);
-        tvInnerLeft.setText("BLUB");
     }
 
     public void switchInnerLayouts() {
