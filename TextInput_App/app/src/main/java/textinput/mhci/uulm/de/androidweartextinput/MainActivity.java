@@ -1,8 +1,6 @@
 package textinput.mhci.uulm.de.androidweartextinput;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.gesture.GestureOverlayView;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.wearable.view.DismissOverlayView;
@@ -16,8 +14,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+/**
+ * Text-Input Activity
+ */
 public class MainActivity extends Activity implements View.OnTouchListener, GestureDetector.OnGestureListener{
 
     public static final int SYMBOLSET_UPPER = 1;
@@ -26,13 +25,17 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     // view attributes
     private View rootView;
-    private Button tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
-    private RelativeLayout relLayoutTextContent, relLayoutSwipeContent, relLayoutInner;
-    private TextView tvTextInput;
-    private TextView tvInnerTop, tvInnerRight, tvInnerBottom, tvInnerLeft;
     private DismissOverlayView dismissOverlayView;
     private GestureDetector gestureDetector;
     private GestureDetector longPressDetector;
+        // layout container
+        private RelativeLayout relLayoutTextContent, relLayoutSwipeContent, relLayoutInner;
+        // border buttons
+        private Button tvTopLeft, tvTopRight, tvRightTop, tvRightBottom, tvBottomRight, tvBottomLeft, tvLeftBottom, tvLeftTop;
+        // textviews which pop up after action_down on border buttons
+        private TextView tvInnerTop, tvInnerRight, tvInnerBottom, tvInnerLeft;
+        // textview which contains the inserted text
+        private TextView tvTextInput;
 
     // app attributes
     private int symbolSet;
@@ -41,21 +44,24 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // infalter listener
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+
         // detect smartwatch shape
         stub.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
                 if (insets.isRound()) {
+                    // inflate round layout
                     rootView = getLayoutInflater().inflate(R.layout.round_activity_main, stub);
 
                 } else {
+                    // inflate square layout
                     rootView = getLayoutInflater().inflate(R.layout.rect_activity_main, stub);
                 }
-                symbolSet = SYMBOLSET_UPPER;
-                // read ui elements
-                initialiseUi(rootView);
+
+                symbolSet = SYMBOLSET_UPPER; // set symbolset
+                initialiseUi(rootView); // read ui elements
+
                 // create dismissOverlay
                 dismissOverlayView = new DismissOverlayView(MainActivity.this);
                 dismissOverlayView.showIntroIfNecessary();
@@ -69,6 +75,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                         dismissOverlayView.show();
                     }
                 });
+
                 // add dissmiss to dissmisOverlay
                 dismissOverlayView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -77,10 +84,10 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
                         return false;
                     }
                 });
+
                 return insets;
             }
         });
-
     }
 
 
@@ -123,6 +130,9 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvInnerLeft = (TextView) rootView.findViewById(R.id.tvInnerLeft);
     }
 
+    /**
+     * Changes visibility of inner Swipe/Text Layout
+     */
     public void switchInnerLayouts() {
         if(relLayoutSwipeContent != null && relLayoutTextContent != null) {
             if(relLayoutSwipeContent.isShown()) {
@@ -135,6 +145,9 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         }
     }
 
+    /**
+     * Changes Keyboard to uppercase letters.
+     */
     public void changeToUpperCase() {
         tvTopLeft.setText(getResources().getString(R.string.text_top_left_upper));
         tvTopRight.setText(getResources().getString(R.string.text_top_right_upper));
@@ -146,6 +159,9 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvLeftTop.setText(getResources().getString(R.string.text_left_top_upper));
     }
 
+    /**
+     * Changes Keyboard to lowercase letters.
+     */
     public void changeToLowerCase() {
         tvTopLeft.setText(getResources().getString(R.string.text_top_left_lower));
         tvTopRight.setText(getResources().getString(R.string.text_top_right_lower));
@@ -157,6 +173,9 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvLeftTop.setText(getResources().getString(R.string.text_left_top_lower));
     }
 
+    /**
+     * Changes Keyboard to additional letters.
+     */
     public void changeToAdditionals() {
         tvTopLeft.setText(getResources().getString(R.string.text_top_left_additional));
         tvTopRight.setText(getResources().getString(R.string.text_top_right_additional));
@@ -168,21 +187,21 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
         tvLeftTop.setText(getResources().getString(R.string.text_left_top_additional));
     }
 
+
     /*
     LISTENER
      */
 
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //System.out.println("ONTOUCHEVENT");
+        // delegate events
         return super.onTouchEvent(event) || longPressDetector.onTouchEvent(event) || gestureDetector.onTouchEvent(event);
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        // check action down on buttons
+        // check action_down on buttons
         if(event.getAction() == MotionEvent.ACTION_DOWN && view.getId() != R.id.relLayout_TextContent) {
             // action down
             int id = view.getId();
@@ -356,6 +375,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        // change to additional keyboard on single tab in middle
         if(symbolSet == SYMBOLSET_LOWER || symbolSet == SYMBOLSET_UPPER){
             symbolSet = SYMBOLSET_ADDITIONAL;
             changeToAdditionals();
@@ -408,11 +428,13 @@ public class MainActivity extends Activity implements View.OnTouchListener, Gest
     }
 
     public void onSwipeRight(){
+        // add empty space
         String text = (String) tvTextInput.getText();
         text += " ";
         tvTextInput.setText(text);
     }
     public void onSwipeLeft(){
+        // remove last letter
         String text = (String) tvTextInput.getText();
         if(text.length() > 0) {
             text = text.substring(0, text.length() - 1);
